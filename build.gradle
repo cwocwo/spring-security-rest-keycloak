@@ -1,23 +1,47 @@
-plugins {
-    id 'java'
-    id 'idea'
-    id 'org.springframework.boot' version '1.5.4.RELEASE'
+
+buildscript {
+	ext {
+		springBootVersion = '1.5.9.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
 }
 
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.inspur.cloud'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
+
+ext {
+	keycloakVersion = '3.4.3.Final'
+}
+
 repositories {
     jcenter()
+	mavenCentral()
 }
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-security'
 
-    compile 'org.keycloak:keycloak-spring-boot-starter:3.1.0.Final'
-    compile 'org.keycloak:keycloak-spring-security-adapter:3.1.0.Final'
+    compile 'org.keycloak:keycloak-spring-boot-starter'
+    compile 'org.keycloak:keycloak-spring-security-adapter'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
+dependencyManagement {
+	imports {
+		mavenBom "org.keycloak.bom:keycloak-adapter-bom:${keycloakVersion}"
+	}
+}

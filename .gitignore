@@ -44,3 +44,12 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+*.log
